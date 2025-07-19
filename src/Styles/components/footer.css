@@ -1,0 +1,12 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-base);
+
+    padding: var(--spacing-md);
+    
+    color: var(--color-text);
+    background-color: var(--color-footer);
+    border-top: var(--border-width) solid var(--border-color);
+}
