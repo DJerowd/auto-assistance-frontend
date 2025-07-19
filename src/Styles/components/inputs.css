@@ -1,0 +1,16 @@
+.input {
+    cursor: text;
+    font-size: var(--font-size-base);
+    transition: var(--transition-fast);
+    
+    width: 100%;
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+
+    border: var(--border-width) solid var(--border-color); 
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+.input:focus {
+    outline: var(--border-width) solid var(--color-primary);
+}

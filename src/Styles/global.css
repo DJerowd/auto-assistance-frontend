@@ -14,6 +14,7 @@
   /* PALETA DE CORES */
   --color-primary: light-dark( #007BFF, #007BFF);
   --color-bg: light-dark( #C0C0C0, #101010);
+  --color-bg-2: light-dark( #FFFFFF, #222222);
   --color-text: light-dark( #000000, #FFFFFF);
   --shadow-color: light-dark( #000000, #242424);
 
@@ -38,10 +39,13 @@
 
   /* VARIÁVEIS DE FORMATAÇÂO DO HEADER */
   --color-header: color-mix(in srgb, var(--color-primary) 100%, #00000000 20%);
-  --height-header: 96px;
+  --height-header: 64px;
 
   /* VARIÁVEIS DE FORMATAÇÂO DO FOOTER */
   --color-footer: light-dark( #D0D0D0, #242424);
+
+  /* VARIÁVEIS DE ANIMAÇÃO */
+  --transition-fast: all 0.25s ease-in-out;
 
   color-scheme: light dark;
 }

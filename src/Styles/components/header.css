@@ -3,11 +3,12 @@
     align-items: center;
     justify-Content: space-between;
     font-size: var(--font-size-base);
-
+    
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
 
     height: var(--height-header);
     width: 100%;

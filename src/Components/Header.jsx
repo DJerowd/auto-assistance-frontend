@@ -1,15 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { getLoggedInUser } from '../utils/auth';
+import Menu from './Menu';
 
 import '../Styles/components/header.css';
 
 function Header() {
+  const loggedInUser = getLoggedInUser()
+
   return (
     <header className='header'>
         <h1 className='title'>Auto Assistance</h1>
-        <nav>
-            <Link className='link' to="/">Início</Link>
-            <Link className='link' to="/about">Sobre</Link>
-        </nav>
+
+        {!loggedInUser ? (
+            <nav>
+              <Link className='link' to="/signin">Entre</Link>
+              <Link className='link' to="/signup">Cadastre-se</Link>
+          </nav>
+        ) : (    
+          <Menu />
+        )}
     </header>
   )
 }

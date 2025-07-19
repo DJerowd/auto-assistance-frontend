@@ -1,0 +1,22 @@
+.btn {
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: var(--transition-fast);
+
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    
+    border: none;
+    color: var(--color-text);
+    background-color: var(--color-primary);
+}
+.btn:hover {
+    filter: brightness(150%);
+}
+.btn:active {
+    filter: brightness(120%);
+}
+.btn:disabled {
+    filter: brightness(80%);
+}
