@@ -31,7 +31,7 @@
 
   /* VARIÁVEIS DE BORDAS */
   --border-radius: 8px;
-  --border-width: 1px;
+  --border-width: 2px;
   --border-color: #444444;
 
   /* VARIÁVEIS DE SOMBREAMENTO */
@@ -40,6 +40,9 @@
   /* VARIÁVEIS DE FORMATAÇÂO DO HEADER */
   --color-header: color-mix(in srgb, var(--color-primary) 100%, #00000000 20%);
   --height-header: 64px;
+
+  /* VARIÁVEIS DE FORMATAÇÂO DO MENU */
+  --width-menu: 320px;
 
   /* VARIÁVEIS DE FORMATAÇÂO DO FOOTER */
   --color-footer: light-dark( #D0D0D0, #242424);

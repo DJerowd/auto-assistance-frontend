@@ -20,3 +20,8 @@
 .btn:disabled {
     filter: brightness(80%);
 }
+
+.btn-header {
+    font-size: var(--font-size-subtitle);
+    background: none;
+}
