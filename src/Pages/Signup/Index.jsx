@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../Hooks/useAuth'
 
 function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const { register, loading } = useAuth()
 
   function handleRegister(e) {
     e.preventDefault()
-    alert('Cadastro realizado!')
-    navigate('/signin')
+    register({ name, email, password })
   }
 
   return (
@@ -34,7 +34,9 @@ function Register() {
           <input className='input' id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
 
-        <button className='btn' type="submit">Cadastrar</button>
+        <button className='btn' type="submit" disabled={loading}>
+          {loading ? 'Cadastrando...' : 'Cadastrar'}
+        </button>
 
         <p>Já tem uma conta? <Link className='link' to="/signin">Entrar</Link></p>
 

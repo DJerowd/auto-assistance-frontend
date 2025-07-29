@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../Hooks/useAuth'
 import '../../Styles/components/inputs.css'
 import '../../Styles/components/buttons.css'
 import '../../Styles/sign.css'
@@ -7,13 +8,11 @@ import '../../Styles/sign.css'
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const { login, loading } = useAuth()
 
   function handleLogin(e) {
     e.preventDefault()
-    alert('Login realizado!')
-    localStorage.setItem('loggedInUser', JSON.stringify(email));
-    navigate('/dashboard')
+    login({ email, password })
   }
 
   return (
@@ -32,8 +31,8 @@ export default function Login() {
           <input className='input' id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
 
-        <button className='btn' type="submit">
-          Entrar
+        <button className='btn' type="submit" disabled={loading}>
+          {loading ? 'Entrando...' : 'Entrar'}
         </button>
 
         <p>Não tem uma conta? <Link className='link' to="/signup">Cadastre-se</Link></p>

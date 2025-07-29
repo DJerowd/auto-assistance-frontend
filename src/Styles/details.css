@@ -1,0 +1,87 @@
+.btn-action {
+  background-color: var(--color-bg-2);
+  color: var(--color-text);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.btn-action:hover {
+  background-color: var(--color-bg);
+}
+
+.vehicle-details-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  
+  background: var(--color-bg-2);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.vehicle-details-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  gap: var(--spacing-md);
+
+  background: var(--color-bg-2);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.info-section h2 {
+  font-size: var(--font-size-subtitle);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-primary);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item strong {
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
+}
+
+.info-item span {
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+
+@media (max-width: 768px) {
+  .btn-box {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .vehicle-details-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    margin: var(--spacing-md);
+    padding: var(--spacing-lg);
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+}

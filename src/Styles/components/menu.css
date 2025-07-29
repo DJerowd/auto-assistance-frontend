@@ -36,7 +36,7 @@
     padding: var(--spacing-md);
 
     background: var(--color-bg-2);
-    outline: var(--border-width) solid var(--border-color);
+    outline: var(--border-width) solid var(--color-border);
 }
 .menu-show {
     transform: translateX(0);
@@ -49,6 +49,7 @@
     text-align: center;
     text-wrap: nowrap;
     text-decoration: none;
+    font-size: inherit;
     overflow: hidden;
     cursor: pointer;
     transition: var(--transition-fast);
@@ -58,7 +59,7 @@
     border-radius: var(--border-radius);
     
     color: var(--color-text);
-    background-color: var(--color-bg-2);
+    background-color: var(--color-bg);
     border: none;
 }
 .menu-item:hover {

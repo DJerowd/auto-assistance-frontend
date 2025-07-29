@@ -1,0 +1,55 @@
+.vehicles-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+
+  width: 100%;
+  gap: var(--spacing-lg);
+}
+
+.vehicle-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  
+  min-height: 340px;
+  width: 280px;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  gap: var(--spacing-md);
+  
+  color: var(--color-text);
+  background: var(--color-bg-2);
+  box-shadow: var(--box-shadow);
+  border: var(--border-width) solid var(--color-border);
+  
+  transition: var(--transition-fast);
+}
+
+.vehicle-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.vehicle-name {
+  text-align: center;
+  font-size: var(--font-size-subtitle);
+  color: var(--color-primary);
+}
+.vehicle-image {
+  object-fit: contain;
+  overflow: hidden;
+
+  width: 100%;
+  height: 160px;
+  border-radius: var(--border-radius);
+  stroke-width: var(--border-width);
+
+  background-color: var(--color-bg);
+  stroke: var(--color-border);
+  fill: var(--color-bg-2);
+}
+.vehicle-info {
+  width: 100%;
+}

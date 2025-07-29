@@ -13,8 +13,19 @@
 }
 
 .content {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+
     width: 100vw;
     padding: calc(var(--height-header) + 16px) 16px 16px 16px;
     min-height: 100vh;
+}
+.content-garage,.content-details {
+    gap: var(--spacing-md);
+}
+
+.title {
+    text-align: center;
+    font-size: var(--font-size-title);
+    color: var(--color-primary);
 }

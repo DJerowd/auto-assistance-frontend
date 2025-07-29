@@ -1,0 +1,97 @@
+/* Estilos para o modal */
+.modal-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    padding: var(--spacing-md);
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    
+    border-bottom: var(--border-width) solid var(--color-border);
+}
+.modal-title {
+    font-size: var(--font-size-title);
+    color: var(--color-primary);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    max-width: var(--width-modal);
+    max-height: 90vh;
+    width: 100%;
+    padding: var(--spacing-xl);
+    gap: var(--spacing-sm);
+    border-radius: var(--border-radius);
+
+    background: var(--color-bg-2);
+    border: var(--border-width) solid var(--color-border);
+    box-shadow: var(--box-shadow);
+  }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group label {
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+}
+
+.modal-error {
+    color: var(--color-error);
+    text-align: center;
+    margin: 0;
+    padding: var(--spacing-sm);
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-error);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: var(--border-width) solid var(--color-border);
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: var(--spacing-md);
+        padding: var(--spacing-lg);
+    }
+    
+    .modal-form {
+        margin: var(--spacing-md);
+        padding: var(--spacing-lg);
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+} 

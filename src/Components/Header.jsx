@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <header className='header'>
-        <h1 className='title'>Auto Assistance</h1>
+        <h1 className='title-header'>Auto Assistance</h1>
 
         {!loggedInUser ? (
           <nav>

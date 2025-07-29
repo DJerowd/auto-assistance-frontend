@@ -15,13 +15,14 @@
     padding: 0 var(--spacing-md);
 
     backdrop-filter: blur(10px);
-    border-Bottom: var(--border-width) solid var(--border-color);
+    border-Bottom: var(--border-width) solid var(--color-border);
     background: var(--color-header);
     color: var(--color-text);
 }
 
-.header .title {
+.title-header {
     font-size: var(--font-size-title);
+    color: var(--color-text);
 }
 
 .header nav {

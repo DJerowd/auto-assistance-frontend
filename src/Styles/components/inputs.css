@@ -4,13 +4,15 @@
     transition: var(--transition-fast);
     
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius);
 
-    border: var(--border-width) solid var(--border-color); 
+    appearance: none;
     color: var(--color-text);
     background-color: var(--color-bg);
+    border: var(--border-width) solid var(--color-border); 
 }
 .input:focus {
-    outline: var(--border-width) solid var(--color-primary);
+    border-color: var(--color-primary);
+    outline: none;
 }

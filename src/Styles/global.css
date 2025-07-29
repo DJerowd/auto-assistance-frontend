@@ -12,11 +12,11 @@
   --font-size-subtitle: 1.4rem;
 
   /* PALETA DE CORES */
-  --color-primary: light-dark( #007BFF, #007BFF);
-  --color-bg: light-dark( #C0C0C0, #101010);
-  --color-bg-2: light-dark( #FFFFFF, #222222);
+  --color-primary: light-dark( #009F4D, #007BFF);
+  --color-bg: light-dark( #E9E9E9, #101010);
+  --color-bg-2: light-dark( #F9F9F9, #222222);
   --color-text: light-dark( #000000, #FFFFFF);
-  --shadow-color: light-dark( #000000, #242424);
+  --shadow-color: light-dark( #242424, #242424);
 
   --color-success: #28A745;
   --color-error: #DC3545;
@@ -32,7 +32,7 @@
   /* VARIÁVEIS DE BORDAS */
   --border-radius: 8px;
   --border-width: 2px;
-  --border-color: #444444;
+  --color-border: #444444;
 
   /* VARIÁVEIS DE SOMBREAMENTO */
   --box-shadow: 0 0 8px var(--shadow-color);
@@ -46,6 +46,9 @@
 
   /* VARIÁVEIS DE FORMATAÇÂO DO FOOTER */
   --color-footer: light-dark( #D0D0D0, #242424);
+
+  /* VARIÁVEIS DE FORMATAÇÂO DO MODAL */
+  --width-modal: 500px;
 
   /* VARIÁVEIS DE ANIMAÇÃO */
   --transition-fast: all 0.25s ease-in-out;

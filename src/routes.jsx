@@ -5,6 +5,7 @@ import Signin from './Pages/Signin/Index';
 import Signup from './Pages/Signup/Index';
 import Dashboard from './Pages/Dashboard/Index';
 import Garage from './Pages/Garage/Index';
+import VehicleDetails from './Pages/Garage/VehicleDetails';
 
 function MainRoutes() {
   return (
@@ -16,6 +17,7 @@ function MainRoutes() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/garage" element={<Garage />} />
+        <Route path="/garage/vehicle/:id" element={<VehicleDetails />} />
       </Routes>
     </BrowserRouter>
   )
