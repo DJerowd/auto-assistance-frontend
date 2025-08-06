@@ -1,35 +1,27 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApi } from '../../Hooks/useApi'
+import { useVehicle } from '../../Hooks/useVehicle'
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import Pagination from '../../Components/Pagination.jsx'
-import AddVehicleModal from '../../Components/Modals/AddVehicleModal.jsx'
-import DeleteVehicleModal from '../../Components/Modals/DeleteVehicleModal.jsx';
-import CarIcon from '../../assets/car-sport.jsx'
+import VehicleImage from '../../Components/VehicleImage.jsx';
+import AddVehicleModal from '../../Components/Modals/AddVehicleModal'
+import DeleteVehicleModal from '../../Components/Modals/DeleteVehicleModal';
 
-import '../../Styles/list.css'
+import '../../Styles/pages/garage.css'
 import '../../Styles/components/buttons.css'
 import '../../Styles/components/select.css'
-
-function buildQuery(page, filters) {
-  const params = new URLSearchParams()
-  params.append('page', page)
-  if (filters.limit) params.append('limit', filters.limit)
-  if (filters.brand) params.append('brand', filters.brand)
-  if (filters.color) params.append('color', filters.color)
-  return `/vehicles?${params.toString()}`
-}
+import LoadingSpinner from '../../assets/LoadingSpinner.jsx';
 
 export default function Garage() {
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [selectedItens, setSelectedItens] = useState([]);
     const [filters, setFilters] = useState({ limit: 10, brand: '', color: '' });
-    const endpoint = buildQuery(page, filters);
     
-    const { data: vehiclesData, loading, error } = useApi(endpoint, {}, [page, filters]);
+    const { data: vehiclesData, loading, error } = useVehicle( {}, [page, filters]);
     const { data: allVehiclesData } = useApi('/vehicles?limit=1000', {}, []);
     const totalPages = vehiclesData?.data?.totalPages || 1;
 
@@ -100,13 +92,14 @@ export default function Garage() {
             </select>
           </div>
 
-          {loading && <p>Loading vehicles...</p>}
+          {loading && <LoadingSpinner/>}
           {error && <p style={{ color: 'var(--color-danger)' }}>{error}</p>}
           {!loading && !error && vehicles.length === 0 && <p>No vehicles found.</p>}
           {!loading && !error && vehicles.length > 0 && (
             <div className="vehicles-grid">
               {vehicles.map(vehicle => (
                 <div className="vehicle-card" key={vehicle.id} onClick={() => { navigate(`/garage/vehicle/${vehicle.id}`) }}>
+
                   <div style={{ alignSelf: 'flex-end' }} onClick={(e) => e.stopPropagation()}>
                     <input
                       className='select select-checkbox'
@@ -116,8 +109,9 @@ export default function Garage() {
                       title={`Select ${vehicle.name}`}
                     />
                   </div>
-                  <h3 className="vehicle-name">{vehicle.name}</h3>
-                  <CarIcon className="vehicle-image" width="120" height="120" />
+                  
+                  <VehicleImage imageUrl={vehicle.image} alt={vehicle.name} width={240} height={135} />
+
                   <div className="vehicle-info">
                     <p><strong>Brand:</strong> {vehicle.brand}</p>
                     <p><strong>Model:</strong> {vehicle.model}</p>
@@ -126,6 +120,7 @@ export default function Garage() {
                     <p><strong>License Plate:</strong> {vehicle.licensePlate ? vehicle.licensePlate : 'Não informado'}</p>
                     <p><strong>Mileage:</strong> {vehicle.mileage.toLocaleString('pt-BR')} km</p>
                   </div>
+
                 </div>
               ))}
             </div>

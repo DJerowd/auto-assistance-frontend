@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useApi } from '../../Hooks/useApi';
-import CarIcon from '../../assets/car-sport.jsx';
+import { useVehicleById } from '../../Hooks/useVehicle.js';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
+import VehicleImage from '../../Components/VehicleImage.jsx';
 import EditVehicleModal from '../../Components/Modals/EditVehicleModal.jsx';
 import DeleteVehicleModal from '../../Components/Modals/DeleteVehicleModal.jsx';
 
 import '../../Styles/components/buttons.css';
-import '../../Styles/details.css';
+import '../../Styles/pages/details.css';
+import LoadingSpinner from '../../assets/LoadingSpinner.jsx';
 
 export default function VehicleDetails() {
   const { id } = useParams();
@@ -20,8 +21,8 @@ export default function VehicleDetails() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const { data, loading, error } = useApi(`/vehicles/${id}`, {}, [id, refreshTrigger]);
-
+  const { data, loading, error } = useVehicleById( {}, [id, refreshTrigger]);
+  
   useEffect(() => {
     if (data?.data) setVehicle(data.data);
   }, [data]);
@@ -35,7 +36,7 @@ export default function VehicleDetails() {
       <div className='container'>
         <Header />
         <div className='content'>
-          <p>Loading vehicle details...</p>
+          <LoadingSpinner/>
         </div>
         <Footer />
       </div>
@@ -73,8 +74,6 @@ export default function VehicleDetails() {
       <Header />
       <div className='content content-details'>
         
-        <h1 className='title'>{vehicle.name}</h1>
-
         <div className='btn-box'>
           <button className='btn btn-action' onClick={handleBack}>
             ← Back
@@ -87,9 +86,7 @@ export default function VehicleDetails() {
           </button>
         </div>
 
-        <div className='vehicle-details-image'>
-            <CarIcon className="vehicle-image" width="200" height="200" />
-        </div>
+        <VehicleImage imageUrl={vehicle.image} alt={vehicle.name} width={640} height={360} />
 
         <div className='vehicle-details-info'>
             <div className='info-section'>

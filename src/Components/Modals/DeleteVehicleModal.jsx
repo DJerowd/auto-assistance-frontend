@@ -36,10 +36,14 @@ export default function DeleteVehicleModal({ isOpen, onClose, vehicleIds, onSucc
           <h2 className='modal-title'>Confirm Deletion</h2>
           <button className='btn btn-close' type='button' onClick={onClose}>×</button>
         </div>
+
         <p>{message || (ids.length > 1
           ? `Are you sure you want to delete ${ids.length} vehicle(s) selected?`
-          : 'Are you sure you want to delete this vehicle?')}</p>
+          : 'Are you sure you want to delete this vehicle?')}
+        </p>
+
         {error && <p style={{ color: 'var(--color-error)' }}>{error}</p>}
+        
         <div className='modal-actions'>
           <button className='btn btn-cancel' onClick={onClose}>Cancel</button>
           <button className='btn btn-save' style={{ background: 'var(--color-error)' }} onClick={handleDelete} disabled={loading}>

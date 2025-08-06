@@ -1,30 +1,28 @@
 import { useState, useEffect } from 'react';
-import { useAddVehicle } from '../../Hooks/useVehicle'
+import { useAddVehicle } from '../../Hooks/useVehicle';
+import { useData } from '../../Hooks/useData';
 import PropTypes from 'prop-types';
+import ImageInput from '../Inputs/ImageInput';
+import LoadingSpinner from '../../assets/LoadingSpinner';
 
 import '../../Styles/components/modal.css';
 import '../../Styles/components/buttons.css'
 
-export default function VehicleForm({ isOpen, onClose, onSuccess }) {
+export default function AddVehicleModal({ isOpen, onClose, onSuccess }) {
   const { addVehicle, loading, error, success } = useAddVehicle();
+  const { data: color, loading: colorLoading, error: colorError } = useData('colors');
+  const { data: brand, loading: brandLoading, error: brandError } = useData('brands');
+  
   const [formData, setFormData] = useState({
-    name: 'New Vehicle', brand: '', model: '', version: '', color: '', licensePlate: '', mileage: '0'
+    name: 'New Vehicle', brand: '', model: '', version: '', color: '', licensePlate: '', mileage: '0', image: null
   });
+  const [colors, setColors] = useState([]);
+  const [brands, setBrands] = useState([]);
 
-  const brands = [
-    'Toyota', 'Honda', 'Ford', 'Chevrolet', 'Volkswagen', 'BMW', 'Mercedes-Benz',
-    'Audi', 'Nissan', 'Hyundai', 'Kia', 'Mazda', 'Subaru', 'Lexus', 'Acura',
-    'Infiniti', 'Volvo', 'Jaguar', 'Land Rover', 'Porsche', 'Ferrari', 'Lamborghini',
-    'Maserati', 'Bentley', 'Rolls-Royce', 'Tesla', 'Fiat', 'Peugeot', 'Renault',
-    'Citroën', 'Opel', 'Skoda', 'Seat', 'Alfa Romeo', 'Lancia'
-  ];
-
-  const colors = [
-    'White', 'Black', 'Silver', 'Gray', 'Red', 'Blue', 'Green', 'Yellow',
-    'Orange', 'Purple', 'Pink', 'Brown', 'Beige', 'Gold', 'Bronze', 'Navy',
-    'Maroon', 'Teal', 'Lime', 'Cyan', 'Magenta', 'Indigo', 'Violet', 'Coral',
-    'Salmon', 'Turquoise', 'Olive', 'Khaki', 'Cream', 'Ivory', 'Charcoal'
-  ];
+  useEffect(() => {
+    if (color) setColors((color.data.data));
+    if (brand) setBrands((brand.data.data));
+  }, [color, brand]);
 
   useEffect(() => {
     if (success) {
@@ -36,12 +34,34 @@ export default function VehicleForm({ isOpen, onClose, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addVehicle(formData);
-    if (!error) {
-      setFormData({ name: 'New Vehicle', brand: '', model: '', version: '', color: '', licensePlate: '', mileage: '0' });
-    }
   };
 
   if (!isOpen) return null;
+
+  if ( colorLoading || brandLoading) return (
+    <div className='modal-bg' onClick={() => onClose()}>
+      <form className='modal-content' onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
+        <div className='modal-header'>
+          <h2 className='modal-title'>Add New Vehicle</h2>
+          <button className='btn btn-close' type='button' onClick={() => onClose()}>×</button>
+        </div>
+        <LoadingSpinner/>
+      </form>
+    </div>
+  );
+
+  if ( colorError || brandError) return (
+    <div className='modal-bg' onClick={() => onClose()}>
+      <form className='modal-content' onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
+        <div className='modal-header'>
+          <h2 className='modal-title'>Add New Vehicle</h2>
+          <button className='btn btn-close' type='button' onClick={() => onClose()}>×</button>
+        </div>
+        <p style={{ color: 'var(--color-danger)' }}>{colorError}</p>
+        <p style={{ color: 'var(--color-danger)' }}>{brandError}</p>
+      </form>
+    </div>
+  );
   
   return (
     <div className='modal-bg' onClick={() => onClose()}>
@@ -51,6 +71,13 @@ export default function VehicleForm({ isOpen, onClose, onSuccess }) {
           <h2 className='modal-title'>Add New Vehicle</h2>
           <button className='btn btn-close' type='button' onClick={() => onClose()}>×</button>
         </div>
+
+        <ImageInput
+          value={formData.image}
+          onChange={img => {
+            setFormData(f => ({ ...f, image: img })); 
+          }}
+        />
 
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
@@ -76,7 +103,7 @@ export default function VehicleForm({ isOpen, onClose, onSuccess }) {
           >
             <option value=''>Select a brand</option>
             {brands.map(brand => (
-              <option key={brand} value={brand}>{brand}</option>
+              <option key={brand.id} value={brand.brand}>{brand.brand}</option>
             ))}
           </select>
         </div>
@@ -116,8 +143,8 @@ export default function VehicleForm({ isOpen, onClose, onSuccess }) {
             required
           >
             <option value=''>Select a color</option>
-            {colors.map(color => (
-              <option key={color} value={color}>{color}</option>
+            {colors.map((color, index) => (
+              <option key={color.id} value={color.color} style={{color:color.hex}}>{index + 1} {color.color}</option>
             ))}
           </select>
         </div>
@@ -162,7 +189,7 @@ export default function VehicleForm({ isOpen, onClose, onSuccess }) {
   );
 }
 
-VehicleForm.propTypes = {
+AddVehicleModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired

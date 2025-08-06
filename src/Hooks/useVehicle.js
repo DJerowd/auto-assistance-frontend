@@ -1,5 +1,84 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import api from '../Services/api'
+import { buildVehicleQuery } from '../utils/buildQuery'
+import { loadBlobImage } from '../utils/loadBlobImage'
+
+export function useVehicle( options = {}, dependencies = []) {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const endpoint = buildVehicleQuery(dependencies[0], dependencies[1])
+
+  useEffect(() => {
+    let isMounted = true
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await api.request(
+          { url: endpoint, ...options }
+        );
+        
+        const vehicles = response.data.data.vehicles;
+        const vehiclesWithBlobs = await Promise.all(
+          vehicles.map(async (vehicle) => {
+            try {
+              const imageResponse = await api.get(vehicle.imageUrl, { responseType: 'blob' });
+              const imageUrl = URL.createObjectURL(imageResponse.data);
+              return { ...vehicle, image: imageUrl };
+            } catch (imgErr) {
+              return { ...vehicle, image: '/default-vehicle.png' };
+            }
+          })
+        );
+        const responseData = ({...response.data, data: {...response.data.data, vehicles: vehiclesWithBlobs}})
+
+        if (isMounted) setData(responseData);
+        // if (isMounted) setData(response.data)
+      } catch (err) {
+        if (isMounted) setError(err.response?.data?.message || 'Erro ao conectar com a API')
+      } finally {
+        if (isMounted) setLoading(false)
+      }
+    }
+    fetchData()
+    return () => { isMounted = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies)
+
+  return { data, loading, error }
+}
+
+export function useVehicleById( options = {}, dependencies = []) {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const id = dependencies[0]
+
+  useEffect(() => {
+    let isMounted = true
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await api.request(
+          { url: `/vehicles/${id}`, ...options }
+        );
+        const responseData = await loadBlobImage(response.data.data);
+        if (isMounted) setData({...response.data, data: responseData})
+      } catch (err) {
+        if (isMounted) setError(err.response?.data?.message || 'Erro ao conectar com a API')
+      } finally {
+        if (isMounted) setLoading(false)
+      }
+    }
+    fetchData()
+    return () => { isMounted = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies)
+
+  return { data, loading, error }
+} 
 
 export function useAddVehicle() {
   const [loading, setLoading] = useState(false)
@@ -11,7 +90,9 @@ export function useAddVehicle() {
     setError(null)
     setSuccess(false)
     try {
-      await api.post('/vehicles', vehicleData)
+      await api.post('/vehicles', vehicleData,
+        {headers: { 'Content-Type': 'multipart/form-data' }}
+      )
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao adicionar veículo')
@@ -33,7 +114,9 @@ export function useUpdateVehicle() {
     setError(null)
     setSuccess(false)
     try {
-      await api.put(`/vehicles/${vehicleId}`, vehicleData)
+      await api.put(`/vehicles/${vehicleId}`, vehicleData,
+        {headers: { 'Content-Type': 'multipart/form-data' }}
+      )
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao atualizar veículo')

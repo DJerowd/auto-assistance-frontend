@@ -1,0 +1,8 @@
+export function buildVehicleQuery(page, filters) {
+  const params = new URLSearchParams()
+  params.append('page', page)
+  if (filters.limit) params.append('limit', filters.limit)
+  if (filters.brand) params.append('brand', filters.brand)
+  if (filters.color) params.append('color', filters.color)
+  return `/vehicles?${params.toString()}`
+}
