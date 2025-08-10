@@ -59,7 +59,7 @@ export default function ImageInput({ value, onChange }) {
     <div className='form-group'>
       <label htmlFor={'image'}>Image</label>
       <div
-        className={`image-upload${dragActive ? ' drag-active' : ''}`}
+        className={`input-image${dragActive ? ' drag-active' : ''}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}

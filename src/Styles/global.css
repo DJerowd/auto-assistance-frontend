@@ -8,8 +8,8 @@
   /* VARIÁVEIS DE TIPOGRAFIA */
   --font-family-base: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --font-size-base: 1rem;
-  --font-size-title: 2rem;
-  --font-size-subtitle: 1.4rem;
+  --font-size-title: calc(var(--font-size-base) * 2);
+  --font-size-subtitle: calc(var(--font-size-base) * 1.4);
 
   /* PALETA DE CORES */
   --color-primary: light-dark( #009F4D, #007BFF);
@@ -38,7 +38,7 @@
   --box-shadow: 0 0 8px var(--shadow-color);
 
   /* VARIÁVEIS DE FORMATAÇÂO DO HEADER */
-  --color-header: color-mix(in srgb, var(--color-primary) 100%, #00000000 20%);
+  --color-header: color-mix(in srgb, var(--color-primary) 100%, transparent 20%);
   --height-header: 64px;
 
   /* VARIÁVEIS DE FORMATAÇÂO DO MENU */

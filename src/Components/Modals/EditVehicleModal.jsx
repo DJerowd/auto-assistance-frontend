@@ -24,7 +24,7 @@ export default function EditVehicleModal({ isOpen, onClose, vehicle, onSuccess }
     }, [color, brand]);
 
     useEffect(() => {
-        if (vehicle) setFormData({ name: vehicle.name || '', brand: vehicle.brand || '', model: vehicle.model || '', version: vehicle.version || '', color: vehicle.color || '', licensePlate: vehicle.licensePlate || '', mileage: vehicle.mileage?.toString() || '0', image: vehicle.image || '' });
+        if (vehicle) setFormData({ name: vehicle.name || '', brand: vehicle.brand || '', model: vehicle.model || '', version: vehicle.version || '', color: vehicle.color || '', licensePlate: vehicle.licensePlate || '', mileage: vehicle.mileage?.toString() || '0', image: '' });
     }, [vehicle]);
 
     useEffect(() => {
@@ -193,8 +193,8 @@ export default function EditVehicleModal({ isOpen, onClose, vehicle, onSuccess }
 } 
 
 EditVehicleModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  vehicle: PropTypes.object.isRequired,
-  onSuccess: PropTypes.func.isRequired
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  vehicle: PropTypes.object,
+  onSuccess: PropTypes.func
 };

@@ -17,10 +17,56 @@
     outline: none;
 }
 
-.image-upload input[type="file"] {
+.input-search {
+    display: flex;
+    position: relative;
+    
+    width: 100%;
+    max-width: 640px;
+    padding: 0;
+
+    background: var(--color-bg-2);
+    border: none;
+}
+.input-search input {
+    font-size: var(--font-size-base);
+
+    width: 100%;
+    padding: var(--spacing-sm) calc(var(--spacing-md) + 60px) var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    
+    background: none;
+    outline: var(--border-width) solid var(--color-border);
+    border: var(--border-width) solid transparent;
+}
+.input-search input:focus {
+    outline: var(--border-width) solid var(--color-primary);
+}
+.input-search div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+
+    right: 0;
+    width: 60px;
+    height: 100%;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+
+    border: none;
+    border-left: var(--border-width) solid var(--color-border);
+}
+.input-search svg {
+    width: var(--font-size-base);
+    height: var(--font-size-base);
+    fill: var(--color-text);
+}
+
+
+.input-image input[type="file"] {
     display: none;
 }
-.image-upload {
+.input-image {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -34,11 +80,11 @@
     border: var(--border-width) solid var(--color-border);
     background-color: var(--color-bg);
 }
-.image-upload.drag-active {
+.input-image.drag-active {
     filter: brightness(150%);
     border-color: var(--color-primary);
 }
-.image-upload .image-dropzone {
+.input-image .image-dropzone {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,10 +99,10 @@
     background: var(--color-bg);
     border: var(--border-width) dashed var(--color-border);
 }
-.image-upload .image-dropzone:has(img) {
+.input-image .image-dropzone:has(img) {
     border: var(--border-width) solid var(--color-border);
 }
-.image-upload .image-preview {
+.input-image .image-preview {
     display: block;
     aspect-ratio: 16 / 9;
     width: 100%;

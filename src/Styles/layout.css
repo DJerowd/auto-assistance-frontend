@@ -15,10 +15,11 @@
 .content {
     display: flex;
     flex-direction: column;
-
+    
     width: 100vw;
     padding: calc(var(--height-header) + 16px) 16px 16px 16px;
     min-height: 100vh;
+    animation: load 0.2s ease-in-out;
 }
 .content-garage,.content-details {
     gap: var(--spacing-md);
@@ -28,4 +29,13 @@
     text-align: center;
     font-size: var(--font-size-title);
     color: var(--color-primary);
+}
+.subtitle {
+    font-size: var(--font-size-subtitle);
+    color: var(--color-primary);
+}
+
+@keyframes load {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }

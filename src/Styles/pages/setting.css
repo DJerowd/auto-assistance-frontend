@@ -1,0 +1,48 @@
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+    width: 640px;
+    max-width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-sm);
+    border-radius: var(--border-radius);
+
+    background-color: var(--color-bg-2);
+    border: var(--border-width) solid var(--color-border);
+}
+.settings-option {
+    display: flex;
+    flex-direction: column;
+
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-sm);
+    border-radius: var(--border-radius);
+
+    border: var(--border-width) dashed var(--color-border);
+}
+
+.settings-option .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.settings-option .color-iten {
+    cursor: pointer;
+    transition: var(--transition-fast);
+
+    width: calc(2 * var(--font-size-base));
+    height: calc(2 * var(--font-size-base));
+    border-radius: 100px;
+    
+    border: none;
+}
+.settings-option .color-iten:not(.selected):hover {
+    transform: scale(1.1);
+}
+.settings-option .color-iten.selected {
+    outline: var(--border-width) solid color-mix(in srgb, currentcolor 100%, transparent 20%);
+}

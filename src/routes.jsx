@@ -6,6 +6,7 @@ import Signup from './Pages/Signup/Index';
 import Dashboard from './Pages/Dashboard/Index';
 import Garage from './Pages/Garage/Index';
 import VehicleDetails from './Pages/Garage/VehicleDetails';
+import Settings from './Pages/Settings/Index';
 
 function MainRoutes() {
   return (
@@ -18,6 +19,7 @@ function MainRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/garage" element={<Garage />} />
         <Route path="/garage/vehicle/:id" element={<VehicleDetails />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   )

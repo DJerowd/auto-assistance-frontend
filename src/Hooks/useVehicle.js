@@ -26,7 +26,7 @@ export function useVehicle( options = {}, dependencies = []) {
               const imageResponse = await api.get(vehicle.imageUrl, { responseType: 'blob' });
               const imageUrl = URL.createObjectURL(imageResponse.data);
               return { ...vehicle, image: imageUrl };
-            } catch (imgErr) {
+            } catch {
               return { ...vehicle, image: '/default-vehicle.png' };
             }
           })
