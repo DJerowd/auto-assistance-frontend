@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useApi } from '../../Hooks/useApi'
-import { useVehicle } from '../../Hooks/useVehicle'
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApi } from '../../Hooks/useApi';
+import { useVehicle } from '../../Hooks/useVehicle';
 
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
@@ -10,13 +10,13 @@ import SearchInput from '../../Components/Inputs/SearchInput';
 import VehicleImage from '../../Components/VehicleImage';
 import ActionButton from '../../Components/Buttons/ActionButton';
 import FilterSelect from '../../Components/Selects/FilterSelect';
-import AddVehicleModal from '../../Components/Modals/AddVehicleModal'
+import ManageVehicleModal from '../../Components/Modals/ManageVehicleModal';
 import DeleteVehicleModal from '../../Components/Modals/DeleteVehicleModal';
 import LoadingSpinner from '../../assets/LoadingSpinner';
 
-import '../../Styles/pages/garage.css'
-import '../../Styles/components/buttons.css'
-import '../../Styles/components/select.css'
+import '../../Styles/pages/garage.css';
+import '../../Styles/components/buttons.css';
+import '../../Styles/components/select.css';
 
 export default function Garage() {
     const navigate = useNavigate();
@@ -34,7 +34,6 @@ export default function Garage() {
     const brands = useMemo(() => [...new Set(allVehicles.map(v => v.brand))], [allVehicles]);
     const colors = useMemo(() => [...new Set(allVehicles.map(v => v.color))], [allVehicles]);
 
-
     return (
       <div className='container'>
         <Header/>
@@ -45,7 +44,7 @@ export default function Garage() {
           <div className="btn-box">
             <ActionButton 
               label="← Back" 
-              onClick={() => navigate('/')} 
+              onClick={() => navigate('/dashboard')} 
             />
             <ActionButton 
               label="+ Add vehicle" 
@@ -70,6 +69,11 @@ export default function Garage() {
 
           {filters &&
             <div className="btn-box">
+              <ActionButton 
+                label="☒ Clear filters" 
+                onClick={() => { setFilters({ brand: '', color: '', search: '' }); setPage(1) }} 
+                disabled={!filters.brand && !filters.color && !filters.search} 
+              />
               <FilterSelect
                 value={filters.brand}
                 onChange={(e) => { setFilters(f => ({ ...f, brand: e.target.value })); setPage(1) }}
@@ -81,6 +85,11 @@ export default function Garage() {
                 onChange={(e) => { setFilters(f => ({ ...f, color: e.target.value })); setPage(1) }}
                 options={colors}
                 placeholder="All colors"
+              />
+              <SearchInput
+                value={filters.search}
+                onSearch={(value) => { setFilters(f => ({ ...f, search: value })); setPage(1) }}
+                placeholder="Search vehicles..."
               />
               <FilterSelect
                 value={filters.limit}
@@ -95,17 +104,12 @@ export default function Garage() {
                   { value: '30', label: 'Limit 30' }
                 ]}
               />
-              <SearchInput
-                value={filters.search}
-                onSearch={(value) => { setFilters(f => ({ ...f, search: value })); setPage(1) }}
-                placeholder="Search vehicles..."
-              />
             </div>
           }
             
           {loading && <LoadingSpinner/>}
-          {error && <p style={{ color: 'var(--color-danger)' }}>{error}</p>}
-          {!loading && !error && vehicles.length === 0 && <p>No vehicles found.</p>}
+          {error && <p className='text-error'>{error}</p>}
+          {!loading && !error && vehicles.length === 0 && <p className='text-error'>No vehicles found.</p>}
           {!loading && !error && vehicles.length > 0 && (
             <>
               <div className="vehicles-grid">
@@ -124,10 +128,11 @@ export default function Garage() {
                     <div className="vehicle-info">
                       <p><strong>Brand:</strong> {vehicle.brand}</p>
                       <p><strong>Model:</strong> {vehicle.model}</p>
-                      <p><strong>Version:</strong> {vehicle.version ? vehicle.version : 'Não informado'}</p>
+                      <p><strong>Version:</strong> {vehicle.version ? vehicle.version : 'Not informed'}</p>
                       <p><strong>Color:</strong> {vehicle.color}</p>
-                      <p><strong>License Plate:</strong> {vehicle.licensePlate ? vehicle.licensePlate : 'Não informado'}</p>
+                      <p><strong>License Plate:</strong> {vehicle.licensePlate ? vehicle.licensePlate : 'Not informed'}</p>
                       <p><strong>Mileage:</strong> {vehicle.mileage.toLocaleString('pt-BR')} km</p>
+                      <p><strong>Year:</strong> {vehicle.year ? vehicle.year : 'Not informed'} </p>
                     </div>
                   </div>
                 ))}
@@ -138,7 +143,7 @@ export default function Garage() {
           )}
         </div>
 
-        <AddVehicleModal
+        <ManageVehicleModal
           isOpen={showModal.add}
           onClose={() => setShowModal(showModal => ({ ...showModal, add: false }))}
           onSuccess={() => window.location.reload()}

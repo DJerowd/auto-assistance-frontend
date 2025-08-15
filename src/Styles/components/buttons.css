@@ -32,6 +32,16 @@
     filter: brightness(50%);
 }
 
+.btn-icon {
+    position: absolute;
+    top: 40%;
+    right: 0;
+    border-radius: var(--border-radius);
+
+    width: min-content;
+    height: min-content;
+}
+
 .btn-header {
     font-size: var(--font-size-subtitle);
     background: none;

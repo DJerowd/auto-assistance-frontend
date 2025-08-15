@@ -11,6 +11,7 @@
   align-items: center;
   user-select: none;
   cursor: pointer;
+  animation: load-card 0.4s ease-in-out;
   
   min-height: 340px;
   width: 280px;
@@ -84,4 +85,9 @@
 }
 .vehicle-image:hover p {
   opacity: 1;
+}
+
+@keyframes load-card {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

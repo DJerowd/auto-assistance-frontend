@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import api from '../Services/api'
 import { buildVehicleQuery } from '../utils/buildQuery'
 import { loadBlobImage } from '../utils/loadBlobImage'
+import api from '../Services/api'
 
 export function useVehicle( options = {}, dependencies = []) {
   const [data, setData] = useState(null)
@@ -15,9 +15,7 @@ export function useVehicle( options = {}, dependencies = []) {
       setLoading(true)
       setError(null)
       try {
-        const response = await api.request(
-          { url: endpoint, ...options }
-        );
+        const response = await api.request( { url: endpoint, ...options } );
         
         const vehicles = response.data.data.vehicles;
         const vehiclesWithBlobs = await Promise.all(
@@ -96,6 +94,7 @@ export function useAddVehicle() {
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao adicionar veículo')
+      if (err.response?.data?.details) setError(err.response?.data?.message + ' ' + err.response?.data?.details || 'Erro ao excluir veículo')
     } finally {
       setLoading(false)
     }
@@ -109,17 +108,18 @@ export function useUpdateVehicle() {
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
 
-  const updateVehicle = async (vehicleId, vehicleData) => {
+  const updateVehicle = async (id, data) => {
     setLoading(true)
     setError(null)
     setSuccess(false)
     try {
-      await api.put(`/vehicles/${vehicleId}`, vehicleData,
+      await api.put(`/vehicles/${id}`, data,
         {headers: { 'Content-Type': 'multipart/form-data' }}
       )
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao atualizar veículo')
+      if (err.response?.data?.details) setError(err.response?.data?.message + ' ' + err.response?.data?.details || 'Erro ao excluir veículo')
     } finally {
       setLoading(false)
     }
@@ -142,6 +142,7 @@ export function useDeleteVehicle() {
       setSuccess(true)
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao excluir veículo')
+      if (err.response?.data?.details) setError(err.response?.data?.message + ' ' + err.response?.data?.details || 'Erro ao excluir veículo')
     } finally {
       setLoading(false)
     }

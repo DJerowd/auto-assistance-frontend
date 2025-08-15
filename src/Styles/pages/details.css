@@ -40,7 +40,7 @@
 
 .info-item {
   display: flex;
-  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .info-item strong {

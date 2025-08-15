@@ -17,7 +17,6 @@ export function useAuth() {
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.message
       setError(errorMessage)
-      alert('Erro ao cadastrar: ' + errorMessage)
     } finally {
       setLoading(false)
     }
@@ -29,14 +28,12 @@ export function useAuth() {
     try {
       const response = await api.post('/users/auth/login', credentials)
       const { token, user } = response.data.data
-      console.log(response.data.data)
       localStorage.setItem('loggedInUser', JSON.stringify({ token, user }))
       alert('Login realizado!')
       navigate('/dashboard')
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.message
       setError(errorMessage)
-      alert('Erro ao fazer login: ' + errorMessage)
     } finally {
       setLoading(false)
     }
@@ -47,11 +44,5 @@ export function useAuth() {
     navigate('/signin')
   }
 
-  return {
-    register,
-    login,
-    logout,
-    loading,
-    error
-  }
+  return { register, login, logout, loading, error }
 } 

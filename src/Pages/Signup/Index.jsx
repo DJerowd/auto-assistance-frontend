@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../Hooks/useAuth'
+import { PasswordInput, TextInput } from '../../Components/Inputs/FormInputs';
 
 function Register() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const { register, loading } = useAuth()
+  const [ formData, setFormData ] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const { register, loading, error } = useAuth()
 
   function handleRegister(e) {
     e.preventDefault()
-    register({ name, email, password })
+    register(formData)
   }
 
   return (
@@ -19,20 +18,40 @@ function Register() {
 
         <h2 className='title'>Criar uma conta</h2>
 
-        <div>
-          <label htmlFor="name">Nome</label>
-          <input className='input' id="name" type="text" value={name} onChange={e => setName(e.target.value)} required />
-        </div>
+        <TextInput
+          id="name"
+          label="Username"
+          value={formData.name}
+          onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+          required
+        />
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input className='input' id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-        </div>
+        <TextInput
+          id="email"
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+          required
+        />
 
-        <div>
-          <label htmlFor="password">Senha</label>
-          <input className='input' id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-        </div>
+        <PasswordInput
+          id="password"
+          label="Password"
+          value={formData.password}
+          onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+          required
+        />
+
+        <PasswordInput
+          id="confirmPassword"
+          label="Confirm Password"
+          value={formData.confirmPassword}
+          onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+          required
+        />
+
+        {error && <p className='text-error'>{error}</p>}
 
         <button className='btn' type="submit" disabled={loading}>
           {loading ? 'Cadastrando...' : 'Cadastrar'}

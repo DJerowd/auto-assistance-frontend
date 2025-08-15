@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import { useAuth } from '../../Hooks/useAuth'
+import { TextInput, PasswordInput } from '../../Components/Inputs/FormInputs'
+
 import '../../Styles/components/inputs.css'
 import '../../Styles/components/buttons.css'
 import '../../Styles/sign.css'
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const { login, loading } = useAuth()
+  const [ formData, setFormData ] = useState({ email: '', password: '' });
+  const { login, loading, error } = useAuth();
 
   function handleLogin(e) {
     e.preventDefault()
-    login({ email, password })
+    login(formData)
   }
 
   return (
@@ -21,15 +23,24 @@ export default function Login() {
 
         <h2 className='title'>Acesse sua conta</h2>
         
-        <div>
-          <label htmlFor="email">Email</label>
-          <input className='input' id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-        </div>
+        <TextInput
+          id="email"
+          label="Email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+          required
+        />
 
-        <div>
-          <label htmlFor="password">Senha</label>
-          <input className='input' id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-        </div>
+        <PasswordInput
+          id="password"
+          label="Password"
+          value={formData.password}
+          onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+          required
+        />
+
+        {error && <p className='text-error'>{error}</p>}
 
         <button className='btn' type="submit" disabled={loading}>
           {loading ? 'Entrando...' : 'Entrar'}

@@ -13,13 +13,13 @@ export default function Menu({showMenu, setShowMenu}) {
     };
 
     return (
-        <div className={showMenu ? 'menu-bg menu-bg-show' : 'menu-bg'}>
-            <nav className={showMenu ? 'menu menu-show' : 'menu'}>
+        <div className={showMenu ? 'menu-bg menu-bg-show' : 'menu-bg'} onClick={() => { setShowMenu(false) }}>
+            <nav className={showMenu ? 'menu menu-show' : 'menu'}  onClick={e => e.stopPropagation()}>
                 <Link to="/" onClick={() => { setShowMenu(false) }} className='menu-item'> Home </Link>
                 <Link to="/dashboard" onClick={() => { setShowMenu(false) }} className='menu-item'> Dashboard </Link>
                 <Link to="/garage" onClick={() => { setShowMenu(false) }} className='menu-item'> Garage </Link>
+                <Link to="/reminders" onClick={() => { setShowMenu(false) }} className='menu-item'> Reminders </Link>
                 <Link to="/settings" onClick={() => { setShowMenu(false) }} className='menu-item'> Settings </Link>
-                <Link to="/about" onClick={() => { setShowMenu(false) }} className='menu-item'> About </Link>
                 <button className='menu-item' onClick={handleLogout}>Logout</button>
             </nav>
         </div>

@@ -1,0 +1,7 @@
+.dashboard-cards {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+    width: max-content;
+}

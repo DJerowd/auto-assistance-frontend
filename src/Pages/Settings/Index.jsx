@@ -7,13 +7,17 @@ import ActionButton from '../../Components/Buttons/ActionButton';
 
 import '../../Styles/components/buttons.css'
 import '../../Styles/pages/setting.css'
+import ChangePassordModal from '../../Components/Modals/ChangePassordModal';
+import EditUserModal from '../../Components/Modals/EditUserModal';
+import DeleteUserModal from '../../Components/Modals/DeleteUserModal';
 
 export default function Settings() {
     const navigate = useNavigate();
-    const [configs, setConfigs] = useState({ primary_color: '', font_family: '', font_size: '' })
+    const [showModal, setShowModal] = useState({ edit: false, change: false, delete: false });
+    const [configs, setConfigs] = useState(JSON.parse(localStorage.getItem('configs')) || { primary_color: '', font_family: '', font_size: '' });
 
     const predefinedColors = ['#E42528', '#FF6400', '#F0C917', '#7FA000', '#007BFF', '#8E44AD', '#F91880'];
-    const predefinedFontFamilies = ['system-ui', 'Arial, Inter, sans-serif', 'Roboto, Helvetica Neue', 'Courier New'];
+    const predefinedFontFamilies = [ 'system-ui', 'Arial, Inter, sans-serif', 'Roboto, Helvetica Neue', 'Courier New'];
     const predefinedFontSizes = ['1rem', '1.2rem', '1.4rem', '1.6rem'];
 
     useEffect(() => {
@@ -33,7 +37,7 @@ export default function Settings() {
 
                 <section className='settings-section'>
                     <h2 className='subtitle'>Tela</h2>
-                    <p>Gerencie o estilo da fonte, tamanho da fonte e cor do plano de fundo.</p>
+                    <p>Gerencie a cor padrão, o estilo da fonte ou tamanho da fonte.</p>
                     <div className='settings-option'>
                         <strong>Color</strong>
                         <span className="options">
@@ -67,23 +71,40 @@ export default function Settings() {
 
                 <section className='settings-section'>
                     <h2 className='subtitle'>Conta</h2>
-                    <p>Gerencie sua conta.</p>
+                    <p>Gerencie sua conta, edite informações, altere a senha ou exclua sua conta.</p>
 
                     <div className='settings-option'>
                         <strong>Editar informações da conta</strong>
-                        <button className='btn'> Editar </button>
+                        <button className='btn' onClick={() => setShowModal(showModal => ({ ...showModal, edit: true }))}> ✎ Editar </button>
                     </div>
                     <div className='settings-option'>
                         <strong>Altere sua senha</strong>
-                        <button className='btn'> Alterar </button>
+                        <button className='btn' onClick={() => setShowModal(showModal => ({ ...showModal, change: true }))}> ✎ Alterar </button>
                     </div>
                     <div className='settings-option'>
                         <strong>Excluir conta</strong>
-                        <button className='btn' style={{ background: 'var(--color-error)' }}> Excluir </button>
+                        <button className='btn' onClick={() => setShowModal(showModal => ({ ...showModal, delete: true }))} style={{ background: 'var(--color-error)' }}> ✖ Excluir </button>
                     </div>
                 </section>
 
             </div>
+
+            <EditUserModal
+                isOpen={showModal.edit}
+                onClose={() => setShowModal(showModal => ({ ...showModal, edit: false }))}
+                onSuccess={() => window.location.reload()}
+            />
+            <ChangePassordModal
+                isOpen={showModal.change}
+                onClose={() => setShowModal(showModal => ({ ...showModal, change: false }))}
+                onSuccess={() => window.location.reload()}
+            />
+            <DeleteUserModal
+                isOpen={showModal.delete}
+                onClose={() => setShowModal(showModal => ({ ...showModal, delete: false }))}
+                onSuccess={() => window.location.reload()}
+            />
+
             <Footer/>
         </div>
     );

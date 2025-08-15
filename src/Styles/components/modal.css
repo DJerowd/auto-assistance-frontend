@@ -51,6 +51,7 @@
 .form-group {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: var(--spacing-sm);
 }
 
@@ -58,16 +59,6 @@
     font-weight: bold;
     color: var(--color-primary);
     font-size: 0.9rem;
-}
-
-.modal-error {
-    color: var(--color-error);
-    text-align: center;
-    margin: 0;
-    padding: var(--spacing-sm);
-    background-color: rgba(220, 53, 69, 0.1);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-error);
 }
 
 .modal-actions {

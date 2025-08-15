@@ -24,13 +24,13 @@
     border: var(--border-width) dashed var(--color-border);
 }
 
-.settings-option .options {
+.options {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-md);
 }
 
-.settings-option .color-iten {
+.color-iten {
     cursor: pointer;
     transition: var(--transition-fast);
 
@@ -40,9 +40,9 @@
     
     border: none;
 }
-.settings-option .color-iten:not(.selected):hover {
+.color-iten:not(.selected):hover {
     transform: scale(1.1);
 }
-.settings-option .color-iten.selected {
+.color-iten.selected {
     outline: var(--border-width) solid color-mix(in srgb, currentcolor 100%, transparent 20%);
 }

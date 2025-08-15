@@ -4,6 +4,7 @@
     justify-content: center;
     font-size: var(--font-size-base);
 
+    width: 100%;
     padding: var(--spacing-md);
     
     color: var(--color-text);

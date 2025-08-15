@@ -1,32 +1,26 @@
-import { useState } from 'react';
 import { useDeleteVehicle } from '../../Hooks/useVehicle';
-import '../../Styles/components/modal.css';
 import PropTypes from 'prop-types';
 
+import '../../Styles/components/modal.css';
+
 export default function DeleteVehicleModal({ isOpen, onClose, vehicleIds, onSuccess, message }) {
-  const { deleteVehicle } = useDeleteVehicle();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  if (!isOpen) return null;
-
+  const { deleteVehicle, loading, error, success } = useDeleteVehicle();
+  
   const ids = Array.isArray(vehicleIds) ? vehicleIds : [vehicleIds];
-
+  
   const handleDelete = async () => {
-    setLoading(true);
-    setError(null);
     try {
       for (const id of ids) {
         await deleteVehicle(id);
       }
-      setLoading(false);
       onClose();
-      if (onSuccess) onSuccess();
-    } catch (err) {
-      setError(err.message || 'Error deleting. Try again.');
-      setLoading(false);
+      if (success) onSuccess();
+    } catch {
+      // 
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className='modal-bg' onClick={onClose}>
